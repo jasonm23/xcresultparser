@@ -8,9 +8,8 @@ import Foundation
 
 public struct MDResultFormatter: XCResultFormatting {
     private let indentWidth = "  "
-
-    public let testFailIcon = "🔴&nbsp;&nbsp;"
-    public let testPassIcon = "🟢&nbsp;&nbsp;"
+    public let testFailIcon = "❌&nbsp;&nbsp;"
+    public let testPassIcon = "✅&nbsp;&nbsp;"
 
     public init() { }
 
@@ -33,39 +32,40 @@ public struct MDResultFormatter: XCResultFormatting {
         return ""
     }
     public var divider: String {
-        return "\n---------------------\n"
+        return "\n- - -\n"
     }
     public func resultSummaryLine(_ item: String, failed: Bool) -> String {
-        return "* " + item.escapingQuotes
+        return "- \(failed ? testFailIcon : testPassIcon) \(item.escapingQuotes)"
     }
     public func resultSummaryLineWarning(_ item: String, hasWarnings: Bool) -> String {
-        return "* " + item.escapingQuotes
+        return "- \(hasWarnings ? "⚠" : "") \(item.escapingQuotes)"
     }
     public func testConfiguration(_ item: String) -> String {
-        return "" //"## " + item.escapingQuotes
+        return ""
     }
     public func testTarget(_ item: String, failed: Bool) -> String {
-        return "### " + item.escapingQuotes
+        return "### \(failed ? testFailIcon : testPassIcon) \(item.escapingQuotes)\n"
     }
     public func testClass(_ item: String, failed: Bool) -> String {
-        return "### " + item.escapingQuotes
+        return "### \(failed ? testFailIcon : testPassIcon) \(item.escapingQuotes)\n"
     }
     public func singleTestItem(_ item: String, failed: Bool) -> String {
-        let color = failed ? "red": "green"
-        return "* <span style=\\\"color:\(color)\\\">" + item.escapingQuotes + "</span>"
+        return "- \(failed ? testFailIcon : testPassIcon) \(item.escapingQuotes) + "</span>"
     }
     public func failedTestItem(_ item: String, message: String) -> String {
-        return "* <span style=\\\"color:red\\\">" + item.escapingQuotes + "</span><br />" + "\n" +
-        "  * <span style=\\\"color:gray\\\">" + message.escapingQuotes + "</span>"
+        return """
+        - \(item.escapingQuotes)
+          - \(message.escapingQuotes)
+        """
     }
     public func codeCoverageTargetSummary(_ item: String) -> String {
         return item.escapingQuotes
     }
     public func codeCoverageFileSummary(_ item: String) -> String {
-        return "## " + item.escapingQuotes
+        return "## \(item.escapingQuotes)"
     }
     public func codeCoverageFunctionSummary(_ items: [String]) -> String {
-        return "### " + items.joined(separator: " ").escapingQuotes
+        return "### \(items.joined(separator: " ").escapingQuotes)"
     }
 }
 
