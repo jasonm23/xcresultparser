@@ -50,7 +50,7 @@ public struct MDResultFormatter: XCResultFormatting {
         return "### \(failed ? testFailIcon : testPassIcon) \(item.escapingQuotes)\n"
     }
     public func singleTestItem(_ item: String, failed: Bool) -> String {
-        return "- \(failed ? testFailIcon : testPassIcon) \(item.escapingQuotes)"
+        return "- \(item.escapingQuotes)"
     }
     public func failedTestItem(_ item: String, message: String) -> String {
         return """
