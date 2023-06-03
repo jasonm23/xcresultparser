@@ -35,7 +35,7 @@ public struct MDResultFormatter: XCResultFormatting {
         return "\n- - -\n"
     }
     public func resultSummaryLine(_ item: String, failed: Bool) -> String {
-        return "- \(failed ? testFailIcon : testPassIcon) \(item.escapingQuotes)"
+        return "- \(item.escapingQuotes)"
     }
     public func resultSummaryLineWarning(_ item: String, hasWarnings: Bool) -> String {
         return "- \(hasWarnings ? "⚠" : "") \(item.escapingQuotes)"
@@ -44,10 +44,10 @@ public struct MDResultFormatter: XCResultFormatting {
         return ""
     }
     public func testTarget(_ item: String, failed: Bool) -> String {
-        return "### \(failed ? testFailIcon : testPassIcon) \(item.escapingQuotes)\n"
+        return "### \(item.escapingQuotes)\n"
     }
     public func testClass(_ item: String, failed: Bool) -> String {
-        return "### \(failed ? testFailIcon : testPassIcon) \(item.escapingQuotes)\n"
+        return "### \(item.escapingQuotes)\n"
     }
     public func singleTestItem(_ item: String, failed: Bool) -> String {
         return "- \(item.escapingQuotes)"
